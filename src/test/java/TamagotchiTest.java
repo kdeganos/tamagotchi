@@ -28,7 +28,7 @@ public class TamagotchiTest {
     Tamagotchi testTama = new Tamagotchi("mr.spock");
 
     testTama.timePasses(10);
-    assertEquals(false, testTama.isAlive());
+    assertEquals(true, testTama.isDead());
   }
 
   @Test

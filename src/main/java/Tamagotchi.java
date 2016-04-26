@@ -1,6 +1,15 @@
 import java.util.Timer;
 import java.util.TimerTask;
 
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
 public class Tamagotchi {
 
   private Timer mTimer;
@@ -24,7 +33,13 @@ public class Tamagotchi {
       timePasses(1);
       // System.out.println("todogotdid");
       // ideally, we would send a get request here, to reload tamaStatus
+      HttpURLConnectionExample http = new HttpURLConnectionExample();
 
+      try{
+      http.sendGet();
+      } catch(Exception e){
+      System.out.println(e);
+      }
       if (isDead()) {
 
         mTimer.cancel();
