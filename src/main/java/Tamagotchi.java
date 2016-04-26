@@ -63,4 +63,6 @@ public class Tamagotchi {
     mHealth = mFoodLevel + mSleepLevel + mActivityLevel;
   }
 
+  
+
 }

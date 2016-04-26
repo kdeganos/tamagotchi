@@ -1,14 +1,19 @@
 <h1> $tamaName </h1>
 <p> $tamaStatus </p>
+<form action ="/time" method="get">
+<button type="submit" id="feed" formaction="/feed" method="get">Feed</button>
+<button type="submit" id="sleep" formaction="/sleep" method="get">Rest</button>
+<button type="submit" id="play" formaction="/play" method="get">Play</button>
+</form>
 
-#if ($tama)
+<!-- #if ($tama)
 <h1> saved tamas <h1>
-  <p> $tama </p>
-  <!-- <ul>
+  <p> $tama.getName() </p>
+  <ul>
 
     <li><a href="">$tama </a></li>
 
-  </ul> -->
+  </ul>
 #else
 <h1>no</h1>
-#end
+#end -->

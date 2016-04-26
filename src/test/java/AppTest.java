@@ -26,11 +26,11 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("mr.spock");
   }
 
-  @Test
-  public void tamaIsStoredInSessionTest() {
-    goTo("http://localhost:4567/");
-    fill("#tamaName").with("mr.spock");
-    submit("#ogForm");
-    assertThat(pageSource()).contains("saved tamas");
-  }
+  // @Test
+  // public void tamaIsStoredInSessionTest() {
+  //   goTo("http://localhost:4567/");
+  //   fill("#tamaName").with("mr.spock");
+  //   submit("#ogForm");
+  //   assertThat(pageSource()).contains("saved tamas");
+  // }
 }

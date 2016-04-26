@@ -21,7 +21,7 @@ public class App {
 
       String tamaName = req.queryParams("tamaName");
       Tamagotchi yourTama = new Tamagotchi(tamaName);
-
+      yourTama.timePasses(5);
       // // potentially for multiple Tamagotchi:
       // req.session().attribute(yourTama.getName(), yourTama);
       req.session().attribute("tama", yourTama);
@@ -39,7 +39,41 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/feed", (req,res) -> {
+      Tamagotchi yourTama = req.session().attribute("tama");
+      // yourTama.timePasses();
+      yourTama.feedTama();
 
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("tamaName", yourTama.getName());
+      model.put("tamaStatus", yourTama.checkStatus());
+      model.put("template", "templates/tamaPlayground.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/sleep", (req,res) -> {
+      Tamagotchi yourTama = req.session().attribute("tama");
+      // yourTama.timePasses();
+      yourTama.sleepTama();
+
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("tamaName", yourTama.getName());
+      model.put("tamaStatus", yourTama.checkStatus());
+      model.put("template", "templates/tamaPlayground.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/play", (req,res) -> {
+      Tamagotchi yourTama = req.session().attribute("tama");
+      // yourTama.timePasses();
+      yourTama.playTama();
+
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("tamaName", yourTama.getName());
+      model.put("tamaStatus", yourTama.checkStatus());
+      model.put("template", "templates/tamaPlayground.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
     //on click reroute, increment time.
   }
 
