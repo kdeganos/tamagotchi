@@ -2,12 +2,16 @@
 import java.util.Map;
 import java.util.HashMap;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
 
 public class App {
   public static void main(String[] args){
+
     String layout = "templates/layout.vtl";
 
     get("/", (req,res) -> {
@@ -21,13 +25,12 @@ public class App {
 
       String tamaName = req.queryParams("tamaName");
       Tamagotchi yourTama = new Tamagotchi(tamaName);
-      yourTama.timePasses(5);
+
       // // potentially for multiple Tamagotchi:
       // req.session().attribute(yourTama.getName(), yourTama);
       req.session().attribute("tama", yourTama);
 
-      System.out.println(req.session().attributes());
-
+      // System.out.println(req.session().attributes());
 
       Map<String, Object> model = new HashMap<String, Object>();
 
@@ -39,11 +42,17 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("/feed", (req,res) -> {
+    get("/action", (req,res) -> {
       Tamagotchi yourTama = req.session().attribute("tama");
       // yourTama.timePasses();
-      yourTama.feedTama();
-
+      System.out.println(req.queryParams());
+      if (req.queryParams().contains("feed")){
+        yourTama.feedTama();
+      } else if (req.queryParams().contains("sleep")) {
+        yourTama.sleepTama();
+      } else if (req.queryParams().contains("play")) {
+        yourTama.playTama();
+      }
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("tamaName", yourTama.getName());
       model.put("tamaStatus", yourTama.checkStatus());
@@ -51,30 +60,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("/sleep", (req,res) -> {
-      Tamagotchi yourTama = req.session().attribute("tama");
-      // yourTama.timePasses();
-      yourTama.sleepTama();
-
-      Map<String, Object> model = new HashMap<String, Object>();
-      model.put("tamaName", yourTama.getName());
-      model.put("tamaStatus", yourTama.checkStatus());
-      model.put("template", "templates/tamaPlayground.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-
-    get("/play", (req,res) -> {
-      Tamagotchi yourTama = req.session().attribute("tama");
-      // yourTama.timePasses();
-      yourTama.playTama();
-
-      Map<String, Object> model = new HashMap<String, Object>();
-      model.put("tamaName", yourTama.getName());
-      model.put("tamaStatus", yourTama.checkStatus());
-      model.put("template", "templates/tamaPlayground.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-    //on click reroute, increment time.
+    //increment time.
   }
 
 }

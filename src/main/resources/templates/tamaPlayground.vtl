@@ -1,9 +1,10 @@
 <h1> $tamaName </h1>
 <p> $tamaStatus </p>
-<form action ="/time" method="get">
-<button type="submit" id="feed" formaction="/feed" method="get">Feed</button>
-<button type="submit" id="sleep" formaction="/sleep" method="get">Rest</button>
-<button type="submit" id="play" formaction="/play" method="get">Play</button>
+<form action ="/action" method="get">
+  <button type="submit" id="feed" name="feed">Feed</button>
+  <button type="submit" id="sleep" name="sleep">Rest</button>
+  <button type="submit" id="play" name="play">Play</button>
+  <button type="submit">Your Tamagotchi is dying, check the status by clicking here. Or click on any of the other buttons.</button>
 </form>
 
 <!-- #if ($tama)

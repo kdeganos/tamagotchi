@@ -26,6 +26,7 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("mr.spock");
   }
 
+  
   // @Test
   // public void tamaIsStoredInSessionTest() {
   //   goTo("http://localhost:4567/");

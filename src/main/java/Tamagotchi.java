@@ -1,4 +1,9 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Tamagotchi {
+
+  private Timer mTimer;
 
   private int mHealth = 30;
 
@@ -10,6 +15,22 @@ public class Tamagotchi {
   public Tamagotchi(String inName){
     //what properties? (maybe if we want types of Tamagotchis)
     mName = inName;
+    mTimer = new Timer();
+    mTimer.schedule(new ToDoTask(), 1);
+  }
+
+  class ToDoTask extends TimerTask {
+    public void run() {
+      timePasses(1);
+      // System.out.println("todogotdid");
+      // ideally, we would send a get request here, to reload tamaStatus
+
+      if (isDead()) {
+
+        mTimer.cancel();
+      }
+      mTimer.schedule(new ToDoTask(), 5000);
+    }
   }
 
   //get properties:
@@ -20,16 +41,19 @@ public class Tamagotchi {
 
   //check status
   public String checkStatus(){
+    if (isDead()){
+     return "it is dead";
+    }
     return getName() +"'s  food level: "+ getFoodLevel() +" sleep level: "+ getSleepLevel() +" activity level: "+ getActivityLevel();
   }
 
 
   //check aliveness of Tamagotchi
-  public boolean isAlive(){
+  public boolean isDead(){
     if (mHealth<10){
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 
 
@@ -63,6 +87,7 @@ public class Tamagotchi {
     mHealth = mFoodLevel + mSleepLevel + mActivityLevel;
   }
 
-  
+
+
 
 }
